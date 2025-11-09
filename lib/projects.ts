@@ -17,7 +17,7 @@ export const projects: readonly Project[] = [
         title: "Piano Practice Tracker",
         description: "Track sessions, goals, and streaks with clean charts.",
         tags: ["Next.js", "FastAPI", "Postgres"],
-        href: "https://your-live-link.com",
+        // href: "https://your-live-link.com",
         repo: "https://github.com/you/piano-tracker",
         image: "/projects/piano-tracker.png",
         year: 2025,
