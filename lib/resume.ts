@@ -12,6 +12,20 @@ export type ResumeItem = {
 
 export const experience: ResumeItem[] = [
     {
+        id: "ucsd-tse",
+        title: "Software Developer",
+        org: "UCSD Triton Software Engineering",
+        start: "Nov 2025",
+        end: "June 2026",
+        location: "UCSD",
+        bullets: [
+            "Accepted into UCSD’s selective nonprofit-focused software engineering organization.",
+            "Collaborating in an Agile development team to design and build production-grade full-stack applications for real clients. ",
+            "Contributing across frontend and backend in an agile startup environment.",
+        ],
+        tags: ["Full Stack", "React", "Node.js", "Typescript"],
+    },
+    {
         id: "ucsd-aisc",
         title: "Project Lead + Software Developer",
         org: "UCSD AI Student Collective",
@@ -20,9 +34,9 @@ export const experience: ResumeItem[] = [
         location: "UCSD",
         bullets: [
             "Building internal tools and web features to improve learning workflows.",
-            "Contributing across frontend and backend in an agile startup environment.",
+            "Leading a team of engineers in a Machine Learning Project",
         ],
-        tags: ["Full Stack", "React", "Node.js"],
+        tags: ["Full Stack", "React", "Node.js", "Typescript"],
     },
     {
         id: "kitesense-2025",
