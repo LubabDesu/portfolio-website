@@ -13,6 +13,7 @@ const links = [
     { href: "/projects", label: "Projects" },
     { href: "/resume", label: "Resume" },
     { href: "/contact", label: "Contact" },
+    { href: "/blogs", label: "Blogs" },
 ];
 
 export default function Navbar() {
