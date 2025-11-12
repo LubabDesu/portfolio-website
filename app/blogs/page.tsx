@@ -5,7 +5,7 @@
 // export const dynamic = "force-static"; // build-time list
 
 export default function BlogsPage() {
-    const blogs = getAllBlogMetaSorted();
+    // const blogs = getAllBlogMetaSorted();
     return (
         <main className="max-w-3xl mx-auto px-4 py-12">
             <h1 className="text-3xl font-bold mb-6">Developing...</h1>
