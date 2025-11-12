@@ -1,8 +1,8 @@
-import Link from "next/link";
-import { getAllBlogMetaSorted } from "../../lib/blogs";
-import BlogCard from "../../components/BlogCard";
+// import Link from "next/link";
+// import { getAllBlogMetaSorted } from "../../lib/blogs";
+// import BlogCard from "../../components/BlogCard";
 
-export const dynamic = "force-static"; // build-time list
+// export const dynamic = "force-static"; // build-time list
 
 export default function BlogsPage() {
     const blogs = getAllBlogMetaSorted();
