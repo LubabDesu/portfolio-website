@@ -13,16 +13,17 @@ export type Project = {
 
 export const projects: readonly Project[] = [
     {
-        slug: "piano-practice-tracker",
-        title: "Piano Practice Tracker",
-        description: "Track sessions, goals, and streaks with clean charts.",
-        tags: ["Next.js", "FastAPI", "Postgres"],
+        slug: "tse-meemli",
+        title: "Triton Software Engineering - Meemli",
+        description:
+            "A centralized program management platform for Meemli that streamlines student attendance, program oversight, and role-based access for administrators and teachers in a single, simplified interface.",
+        tags: ["MERN", "Typescript"],
         // href: "https://your-live-link.com",
-        repo: "https://github.com/you/piano-tracker",
+        repo: "https://github.com/TritonSE/Meemli",
         image: "/projects/piano-tracker.png",
-        year: 2025,
+        year: 2026,
         featured: true,
-        status: "shipped",
+        status: "wip",
     },
     {
         slug: "leetcode-ai-assistant",
