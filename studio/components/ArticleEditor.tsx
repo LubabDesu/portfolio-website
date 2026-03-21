@@ -19,77 +19,86 @@ export default function ArticleEditor({
 }: Props) {
     const [feedback, setFeedback] = useState("");
 
+    const handleRegenerate = () => {
+        onRegenerate(feedback);
+        setFeedback("");
+    };
+
     return (
-        <section
-            style={{
-                border: "1px solid #ccc",
-                padding: "1rem",
-                borderRadius: "8px",
-                marginBottom: "1rem",
-            }}
-        >
-            <h2>3. Article</h2>
-            {transcript && (
-                <details style={{ marginBottom: "0.75rem" }}>
-                    <summary
-                        style={{
-                            cursor: "pointer",
-                            fontSize: "0.85rem",
-                            color: "#555",
-                        }}
-                    >
-                        View transcript
-                    </summary>
-                    <p
-                        style={{
-                            fontStyle: "italic",
-                            color: "#666",
-                            marginTop: "0.5rem",
-                            fontSize: "0.85rem",
-                        }}
-                    >
-                        {transcript}
-                    </p>
-                </details>
-            )}
-            <textarea
-                value={content}
-                onChange={(e) => onChange(e.target.value)}
-                rows={24}
-                style={{
-                    width: "100%",
-                    padding: "0.5rem",
-                    fontSize: "0.875rem",
-                    lineHeight: "1.6",
-                }}
-                placeholder="Generated article will appear here..."
-            />
-            <div
-                style={{ display: "flex", gap: "0.5rem", marginTop: "0.75rem" }}
-            >
-                <input
-                    value={feedback}
-                    onChange={(e) => setFeedback(e.target.value)}
-                    placeholder="Feedback for regeneration (optional)... press Enter to submit"
-                    style={{ flex: 1, padding: "0.4rem 0.75rem" }}
-                    onKeyDown={(e) => {
-                        if (e.key === "Enter" && !isGenerating && transcript) {
-                            onRegenerate(feedback);
-                            setFeedback("");
-                        }
+        <div className="card animate-in">
+            <div className="card-header">
+                <span className="badge">3</span>
+                <h2>Article</h2>
+                <span
+                    style={{
+                        marginLeft: "auto",
+                        fontSize: "10px",
+                        color: "var(--text-muted)",
                     }}
-                />
-                <button
-                    onClick={() => {
-                        onRegenerate(feedback);
-                        setFeedback("");
-                    }}
-                    disabled={isGenerating || !transcript}
-                    style={{ padding: "0.4rem 1rem", whiteSpace: "nowrap" }}
                 >
-                    {isGenerating ? "Generating..." : "Regenerate"}
-                </button>
+                    {content.length > 0
+                        ? `${content.length} chars`
+                        : "awaiting generation"}
+                </span>
             </div>
-        </section>
+            <div className="card-body">
+                <textarea
+                    value={content}
+                    onChange={(e) => onChange(e.target.value)}
+                    rows={22}
+                    className="field-input"
+                    style={{
+                        resize: "vertical",
+                        lineHeight: 1.75,
+                        fontSize: "12.5px",
+                        minHeight: "300px",
+                    }}
+                    placeholder="Generated article will appear here…"
+                />
+                <div className="divider" />
+                <div style={{ display: "flex", gap: "8px" }}>
+                    <input
+                        className="field-input"
+                        value={feedback}
+                        onChange={(e) => setFeedback(e.target.value)}
+                        placeholder="Feedback for regeneration… (Enter to submit)"
+                        style={{ flex: 1 }}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter" && !isGenerating && transcript) {
+                                handleRegenerate();
+                            }
+                        }}
+                    />
+                    <button
+                        className="btn btn-ghost"
+                        onClick={handleRegenerate}
+                        disabled={isGenerating || !transcript}
+                        style={{ flexShrink: 0 }}
+                    >
+                        {isGenerating ? (
+                            <>
+                                <span className="spinner" />
+                                Generating…
+                            </>
+                        ) : (
+                            <>
+                                <svg
+                                    width="12"
+                                    height="12"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                >
+                                    <polyline points="1 4 1 10 7 10" />
+                                    <path d="M3.51 15a9 9 0 1 0 .49-3.71" />
+                                </svg>
+                                Regenerate
+                            </>
+                        )}
+                    </button>
+                </div>
+            </div>
+        </div>
     );
 }

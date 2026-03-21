@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
             .trim();
         const article = JSON.parse(jsonStr);
 
-        return NextResponse.json({ ok: true, article });
+        return NextResponse.json({ ok: true, article, promptSent: userPrompt });
     } catch (err) {
         return NextResponse.json(
             { ok: false, error: String(err) },

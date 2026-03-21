@@ -8,11 +8,13 @@ type Status = "idle" | "recording" | "transcribing" | "done" | "error";
 export default function Recorder({ onTranscript }: Props) {
     const [status, setStatus] = useState<Status>("idle");
     const [error, setError] = useState<string | null>(null);
+    const [capturedText, setCapturedText] = useState<string>("");
     const recorderRef = useRef<MediaRecorder | null>(null);
     const chunksRef = useRef<Blob[]>([]);
 
     const startRecording = useCallback(async () => {
         setError(null);
+        setCapturedText("");
         try {
             const stream = await navigator.mediaDevices.getUserMedia({
                 audio: true,
@@ -45,7 +47,6 @@ export default function Recorder({ onTranscript }: Props) {
     const transcribe = async (blob: Blob) => {
         try {
             const { pipeline } = await import("@huggingface/transformers");
-            // whisper-small.en: ~500MB, downloads once, cached in browser IndexedDB
             const transcriber = await pipeline(
                 "automatic-speech-recognition",
                 "Xenova/whisper-small.en",
@@ -60,7 +61,9 @@ export default function Recorder({ onTranscript }: Props) {
             const text = Array.isArray(result)
                 ? result.map((r: { text: string }) => r.text).join(" ")
                 : (result as { text: string }).text;
-            onTranscript(text.trim());
+            const trimmed = text.trim();
+            setCapturedText(trimmed);
+            onTranscript(trimmed);
             setStatus("done");
         } catch (err) {
             setError(String(err));
@@ -69,53 +72,147 @@ export default function Recorder({ onTranscript }: Props) {
     };
 
     return (
-        <section
-            style={{
-                border: "1px solid #ccc",
-                padding: "1rem",
-                borderRadius: "8px",
-                marginBottom: "1rem",
-            }}
-        >
-            <h2>1. Record</h2>
-            {status === "idle" && (
-                <button
-                    onClick={startRecording}
-                    style={{ padding: "0.5rem 1.5rem", fontSize: "1rem" }}
-                >
-                    Start Recording
-                </button>
-            )}
-            {status === "recording" && (
-                <button
-                    onClick={stopRecording}
-                    style={{
-                        padding: "0.5rem 1.5rem",
-                        fontSize: "1rem",
-                        background: "#c00",
-                        color: "#fff",
-                        border: "none",
-                        borderRadius: "4px",
-                    }}
-                >
-                    Stop Recording
-                </button>
-            )}
-            {status === "transcribing" && (
-                <p>
-                    Transcribing...{" "}
-                    <em>
-                        (first run: downloading Whisper model ~500MB, may take a
-                        few minutes)
-                    </em>
-                </p>
-            )}
-            {status === "done" && (
-                <p style={{ color: "green" }}>Transcription complete</p>
-            )}
-            {status === "error" && (
-                <p style={{ color: "red" }}>Error: {error}</p>
-            )}
-        </section>
+        <div className="card">
+            <div className="card-header">
+                <span className="badge">1</span>
+                <h2>Capture</h2>
+                {status === "recording" && (
+                    <span
+                        style={{
+                            marginLeft: "auto",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "6px",
+                            fontSize: "10px",
+                            color: "var(--rec)",
+                            fontWeight: 600,
+                            letterSpacing: "0.08em",
+                        }}
+                    >
+                        <span
+                            style={{
+                                width: 7,
+                                height: 7,
+                                borderRadius: "50%",
+                                background: "var(--rec)",
+                                animation: "pulse-ring 1.4s ease infinite",
+                                display: "inline-block",
+                            }}
+                        />
+                        REC
+                    </span>
+                )}
+            </div>
+
+            <div className="card-body">
+                {status === "idle" && (
+                    <button className="btn btn-primary" onClick={startRecording}>
+                        <svg
+                            width="13"
+                            height="13"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                        >
+                            <path d="M12 1a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V5a4 4 0 0 1 4-4zm0 16a8 8 0 0 0 8-8h-2a6 6 0 0 1-12 0H4a8 8 0 0 0 8 8zm-1 2h2v3h-2v-3z" />
+                        </svg>
+                        Start Recording
+                    </button>
+                )}
+
+                {status === "recording" && (
+                    <button
+                        className="btn btn-danger btn-recording"
+                        onClick={stopRecording}
+                    >
+                        <svg
+                            width="11"
+                            height="11"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                        >
+                            <rect x="4" y="4" width="16" height="16" rx="2" />
+                        </svg>
+                        Stop Recording
+                    </button>
+                )}
+
+                {status === "transcribing" && (
+                    <div
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "10px",
+                            color: "var(--text-muted)",
+                            fontSize: "12px",
+                        }}
+                    >
+                        <span className="spinner" />
+                        <span>
+                            Transcribing with Whisper…{" "}
+                            <span
+                                style={{
+                                    color: "var(--text-dim)",
+                                    fontStyle: "italic",
+                                }}
+                            >
+                                (first run downloads ~500 MB to browser cache)
+                            </span>
+                        </span>
+                    </div>
+                )}
+
+                {status === "error" && (
+                    <div className="error-banner">
+                        {error}
+                        <br />
+                        <button
+                            className="btn btn-ghost"
+                            style={{ marginTop: 8, padding: "5px 12px" }}
+                            onClick={() => setStatus("idle")}
+                        >
+                            Try again
+                        </button>
+                    </div>
+                )}
+
+                {capturedText && (
+                    <div
+                        className="animate-in"
+                        style={{ marginTop: status === "done" ? 0 : 14 }}
+                    >
+                        {status === "done" && (
+                            <div
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "space-between",
+                                    marginBottom: 10,
+                                }}
+                            >
+                                <span
+                                    style={{
+                                        fontSize: "10px",
+                                        fontWeight: 600,
+                                        letterSpacing: "0.1em",
+                                        color: "var(--success)",
+                                        textTransform: "uppercase",
+                                    }}
+                                >
+                                    Captured transcript
+                                </span>
+                                <button
+                                    className="btn btn-ghost"
+                                    style={{ padding: "4px 10px", fontSize: "11px" }}
+                                    onClick={startRecording}
+                                >
+                                    Re-record
+                                </button>
+                            </div>
+                        )}
+                        <div className="transcript-box">{capturedText}</div>
+                    </div>
+                )}
+            </div>
+        </div>
     );
 }

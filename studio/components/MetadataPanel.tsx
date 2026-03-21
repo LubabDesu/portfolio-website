@@ -19,27 +19,20 @@ function Field({
     label,
     value,
     onChange,
+    span,
 }: {
     label: string;
     value: string;
     onChange: (v: string) => void;
+    span?: boolean;
 }) {
     return (
-        <div style={{ marginBottom: "0.5rem" }}>
-            <label
-                style={{
-                    display: "block",
-                    fontSize: "0.75rem",
-                    fontWeight: "bold",
-                    marginBottom: "2px",
-                }}
-            >
-                {label}
-            </label>
+        <div className="field" style={span ? { gridColumn: "1 / -1" } : {}}>
+            <label className="field-label">{label}</label>
             <input
+                className="field-input"
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
-                style={{ width: "100%", padding: "0.3rem 0.5rem" }}
             />
         </div>
     );
@@ -48,63 +41,87 @@ function Field({
 export default function MetadataPanel({ draft, onChange }: Props) {
     const set = (key: keyof ArticleDraft) => (v: string) =>
         onChange({ ...draft, [key]: v });
+
     return (
-        <section
-            style={{
-                border: "1px solid #ccc",
-                padding: "1rem",
-                borderRadius: "8px",
-                marginBottom: "1rem",
-            }}
-        >
-            <h2>
-                2. Metadata{" "}
+        <div className="card animate-in">
+            <div className="card-header">
+                <span className="badge">2</span>
+                <h2>Metadata</h2>
                 <span
                     style={{
-                        fontSize: "0.75rem",
-                        fontWeight: "normal",
-                        color: "#888",
+                        marginLeft: "auto",
+                        fontSize: "10px",
+                        color: "var(--text-muted)",
+                        fontStyle: "italic",
                     }}
                 >
-                    (edit freely)
+                    AI suggestion — edit freely
                 </span>
-            </h2>
-            <Field label="Title" value={draft.title} onChange={set("title")} />
-            <Field label="Slug" value={draft.slug} onChange={set("slug")} />
-            <Field
-                label="Description"
-                value={draft.description}
-                onChange={set("description")}
-            />
-            <Field label="Date" value={draft.date} onChange={set("date")} />
-            <Field
-                label="Tags (comma-separated)"
-                value={draft.tags.join(", ")}
-                onChange={(v) =>
-                    onChange({
-                        ...draft,
-                        tags: v
-                            .split(",")
-                            .map((t) => t.trim())
-                            .filter(Boolean),
-                    })
-                }
-            />
-            <Field
-                label="Project Slug"
-                value={draft.projectSlug ?? ""}
-                onChange={(v) => onChange({ ...draft, projectSlug: v || null })}
-            />
-            <Field
-                label="Parent Slug"
-                value={draft.parentSlug ?? ""}
-                onChange={(v) => onChange({ ...draft, parentSlug: v || null })}
-            />
-            <Field
-                label="File Path in Repo"
-                value={draft.suggestedFilePath}
-                onChange={set("suggestedFilePath")}
-            />
-        </section>
+            </div>
+            <div className="card-body">
+                <div className="field-grid">
+                    <Field
+                        label="Title"
+                        value={draft.title}
+                        onChange={set("title")}
+                        span
+                    />
+                    <Field
+                        label="Slug"
+                        value={draft.slug}
+                        onChange={set("slug")}
+                    />
+                    <Field
+                        label="Date"
+                        value={draft.date}
+                        onChange={set("date")}
+                    />
+                    <Field
+                        label="Description"
+                        value={draft.description}
+                        onChange={set("description")}
+                        span
+                    />
+                    <Field
+                        label="Tags (comma-separated)"
+                        value={draft.tags.join(", ")}
+                        onChange={(v) =>
+                            onChange({
+                                ...draft,
+                                tags: v
+                                    .split(",")
+                                    .map((t) => t.trim())
+                                    .filter(Boolean),
+                            })
+                        }
+                    />
+                    <Field
+                        label="Status"
+                        value={draft.status}
+                        onChange={set("status")}
+                    />
+                    <Field
+                        label="Project Slug"
+                        value={draft.projectSlug ?? ""}
+                        onChange={(v) =>
+                            onChange({ ...draft, projectSlug: v || null })
+                        }
+                    />
+                    <Field
+                        label="Parent Slug"
+                        value={draft.parentSlug ?? ""}
+                        onChange={(v) =>
+                            onChange({ ...draft, parentSlug: v || null })
+                        }
+                    />
+                    <Field
+                        label="File Path in Repo"
+                        value={draft.suggestedFilePath}
+                        onChange={set("suggestedFilePath")}
+                        span
+                    />
+                </div>
+            </div>
+        </div>
     );
 }

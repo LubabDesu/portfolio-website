@@ -24,69 +24,104 @@ export default function PublishPanel({
     }, [slug]);
 
     return (
-        <section
-            style={{
-                border: "1px solid #ccc",
-                padding: "1rem",
-                borderRadius: "8px",
-                marginBottom: "1rem",
-            }}
-        >
-            <h2>4. Publish</h2>
-            <p
-                style={{
-                    fontSize: "0.85rem",
-                    color: "#555",
-                    margin: "0 0 0.75rem",
-                }}
-            >
-                Branch: <code>blog/{slug}</code> → File:{" "}
-                <code>{suggestedFilePath}</code>
-            </p>
-            <div style={{ marginBottom: "0.75rem" }}>
-                <label
+        <div className="card animate-in">
+            <div className="card-header">
+                <span className="badge">4</span>
+                <h2>Publish</h2>
+            </div>
+            <div className="card-body">
+                <div
                     style={{
-                        display: "block",
-                        fontSize: "0.75rem",
-                        fontWeight: "bold",
-                        marginBottom: "2px",
+                        background: "var(--surface-2)",
+                        border: "1px solid var(--border)",
+                        borderRadius: "var(--radius)",
+                        padding: "10px 12px",
+                        marginBottom: "14px",
+                        fontSize: "11.5px",
+                        color: "var(--text-muted)",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "4px",
                     }}
                 >
-                    PR Title
-                </label>
-                <input
-                    value={prTitle}
-                    onChange={(e) => setPrTitle(e.target.value)}
-                    style={{ width: "100%", padding: "0.3rem 0.5rem" }}
-                />
-            </div>
-            <button
-                onClick={() => onPublish(prTitle)}
-                disabled={isPublishing || !slug}
-                style={{
-                    padding: "0.75rem 2rem",
-                    fontSize: "1rem",
-                    background: "#0070f3",
-                    color: "#fff",
-                    border: "none",
-                    borderRadius: "6px",
-                    cursor: "pointer",
-                }}
-            >
-                {isPublishing ? "Creating PR..." : "Push to GitHub"}
-            </button>
-            {prUrl && (
-                <p style={{ marginTop: "1rem", color: "green" }}>
-                    PR created:{" "}
-                    <a href={prUrl} target="_blank" rel="noreferrer">
-                        {prUrl}
-                    </a>
-                    <br />
-                    <span style={{ fontSize: "0.85rem", color: "#555" }}>
-                        Vercel will create a preview deployment automatically.
+                    <span>
+                        Branch:{" "}
+                        <code
+                            style={{
+                                color: "var(--accent)",
+                                fontSize: "11px",
+                            }}
+                        >
+                            blog/{slug || "…"}
+                        </code>
                     </span>
-                </p>
-            )}
-        </section>
+                    <span>
+                        File:{" "}
+                        <code
+                            style={{
+                                color: "var(--text)",
+                                fontSize: "11px",
+                            }}
+                        >
+                            {suggestedFilePath || "…"}
+                        </code>
+                    </span>
+                </div>
+
+                <div className="field" style={{ marginBottom: "16px" }}>
+                    <label className="field-label">PR Title</label>
+                    <input
+                        className="field-input"
+                        value={prTitle}
+                        onChange={(e) => setPrTitle(e.target.value)}
+                    />
+                </div>
+
+                <button
+                    className="btn btn-publish"
+                    onClick={() => onPublish(prTitle)}
+                    disabled={isPublishing || !slug}
+                >
+                    {isPublishing ? (
+                        <>
+                            <span className="spinner" style={{ borderTopColor: "#fff" }} />
+                            Creating PR…
+                        </>
+                    ) : (
+                        <>
+                            <svg
+                                width="13"
+                                height="13"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2.5"
+                            >
+                                <line x1="12" y1="19" x2="12" y2="5" />
+                                <polyline points="5 12 12 5 19 12" />
+                            </svg>
+                            Push to GitHub
+                        </>
+                    )}
+                </button>
+
+                {prUrl && (
+                    <div className="success-banner animate-in">
+                        <span style={{ fontWeight: 600 }}>PR created</span>
+                        <a href={prUrl} target="_blank" rel="noreferrer">
+                            {prUrl}
+                        </a>
+                        <span
+                            style={{
+                                fontSize: "11px",
+                                color: "var(--text-muted)",
+                            }}
+                        >
+                            Vercel preview deployment will start automatically.
+                        </span>
+                    </div>
+                )}
+            </div>
+        </div>
     );
 }
