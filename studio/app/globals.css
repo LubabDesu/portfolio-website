@@ -1,0 +1,17 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    background: #fafafa;
+    color: #111;
+}
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+input,
+textarea {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: monospace;
+}
