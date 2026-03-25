@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx jest:*)",
+      "Bash(npm install:*)",
+      "Bash(git commit:*)",
+      "Bash(node:*)",
+      "Skill(humanizer)",
+      "Bash(grep -E \"\\\\.\\(ts|tsx|json\\)$\")",
+      "WebSearch",
+      "Bash(find /Users/lucasyan/.claude -name *blog* -o -name *humaniz*)",
+      "Bash(find /Users/lucasyan/.claude -path */skills/blog-writer* -o -path */skills/humanizer*)",
+      "Bash(find /Users/lucasyan/my-portfolio -path */.claude/skills*)"
+    ]
+  }
+}

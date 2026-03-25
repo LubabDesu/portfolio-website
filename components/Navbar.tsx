@@ -23,7 +23,7 @@ export default function Navbar() {
         return pathname === href || pathname.startsWith(href + "/");
     };
     return (
-        <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white/60 backdrop-blur-md dark:bg-neutral-950/60 dark:border-neutral-800">
+        <header className="sticky top-0 z-50 border-b border-slate-800 bg-slate-950/80 backdrop-blur-md">
             <nav className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
                 {/* Logo / Name */}
                 <Link
@@ -44,10 +44,8 @@ export default function Navbar() {
                                     className={cx(
                                         "transition",
                                         active
-                                            ? // ACTIVE STYLE
-                                              "text-blue-600 dark:text-blue-400 underline underline-offset-8 decoration-2"
-                                            : // INACTIVE STYLE
-                                              "hover:text-blue-600 dark:hover:text-blue-400"
+                                            ? "text-blue-400 underline underline-offset-8 decoration-2"
+                                            : "text-slate-300 hover:text-blue-400"
                                     )}
                                 >
                                     {label}

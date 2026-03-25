@@ -1,21 +1,25 @@
-// import Link from "next/link";
-// import { getAllBlogMetaSorted } from "../../lib/blogs";
-// import BlogCard from "../../components/BlogCard";
-
-// export const dynamic = "force-static"; // build-time list
+import BlogExplorer from "../../components/BlogExplorer";
+import { getAllBlogMetaSorted } from "../../lib/blogs";
+import { projects } from "../../lib/projects";
 
 export default function BlogsPage() {
-    // const blogs = getAllBlogMetaSorted();
+    const blogs = getAllBlogMetaSorted();
+    const projectLabels = Object.fromEntries(
+        projects.map((project) => [project.slug, project.title])
+    );
+
     return (
-        <main className="max-w-3xl mx-auto px-4 py-12">
-            <h1 className="text-3xl font-bold mb-6">Developing...</h1>
-            <div className="space-y-4">
-                {/* {blogs.map((b) => (
-                    <Link key={b.slug} href={`/blogs/${b.slug}`}>
-                        <BlogCard blog={b} />
-                    </Link>
-                ))} */}
-            </div>
-        </main>
+        <div className="reveal-up">
+            <h1 className="page-title">Blog</h1>
+            <span className="page-subtitle">Notes by project or topic</span>
+            <BlogExplorer
+                blogs={blogs}
+                projectLabels={{
+                    independent: "General Learnings",
+                    budgetify: "Budgetify",
+                    ...projectLabels,
+                }}
+            />
+        </div>
     );
 }

@@ -1,68 +1,59 @@
-"use client";
+import Link from "next/link";
 
-import IconButton from "@mui/material/IconButton";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import EmailIcon from "@mui/icons-material/Email";
-import { Typography } from "@mui/material";
-
-export default function Contact() {
+export default function ContactPage() {
     return (
-        <div className="max-w-2xl mx-auto px-6 py-36">
-            <p className="mb-10 font-extrabold text-6xl">
-                Let’s Connect <span className="wave">👋</span>
+        <div className="reveal-up">
+            <h1 className="page-title">Contact</h1>
+
+            <p
+                style={{
+                    color: "var(--text-muted)",
+                    maxWidth: "440px",
+                    marginBottom: "3rem",
+                    lineHeight: 1.8,
+                    fontSize: "1rem",
+                }}
+            >
+                Currently seeking software engineering internships for Summer 2025.
+                Open to full-time roles starting 2026.
             </p>
 
-            <Typography
-                variant="body1"
-                className="max-w-2xl text-neutral-600 dark:text-neutral-300 mb-8"
+            <hr className="divider" />
+
+            <nav
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "1.25rem",
+                    marginTop: "2.5rem",
+                }}
             >
-                If you’re working on something interesting or think I could be a
-                good fit — feel free to reach out! Actively seeking SWE + ML
-                internship opportunities for Summer 2026.
-            </Typography>
-            <div className="mt-8 mb-8 my-8 flex items-center gap-6">
-                <IconButton
+                <a
                     href="https://github.com/LubabDesu"
                     target="_blank"
-                    aria-label="GitHub"
-                    sx={{
-                        color: "white", // uses theme color
-                        transition: "transform 120ms ease",
-                        "&:hover": {
-                            transform: "translateY(-3px)",
-                        },
-                    }}
+                    rel="noreferrer"
+                    className="link-btn"
+                    style={{ fontSize: "1rem" }}
                 >
-                    <GitHubIcon fontSize="large" />
-                </IconButton>
-                <IconButton
-                    href="www.linkedin.com/in/lucasyan"
+                    GitHub →
+                </a>
+                <a
+                    href="https://www.linkedin.com/in/lucasyan"
                     target="_blank"
-                    aria-label="GitHub"
-                    sx={{
-                        color: "white",
-                        transition: "transform 120ms ease, color 120ms ease",
-                        "&:hover": {
-                            transform: "translateY(-3px)",
-                        },
-                    }}
+                    rel="noreferrer"
+                    className="link-btn"
+                    style={{ fontSize: "1rem" }}
                 >
-                    <LinkedInIcon fontSize="large" />
-                </IconButton>
-                <IconButton
+                    LinkedIn →
+                </a>
+                <a
                     href="mailto:lubabdesu@gmail.com"
-                    target="_blank"
-                    aria-label="GitHub"
-                    sx={{
-                        color: "white",
-                        transition: "transform 120ms ease",
-                        "&:hover": { transform: "translateY(-3px)" },
-                    }}
+                    className="link-btn"
+                    style={{ fontSize: "1rem" }}
                 >
-                    <EmailIcon fontSize="large" />
-                </IconButton>
-            </div>
+                    lubabdesu@gmail.com →
+                </a>
+            </nav>
         </div>
     );
 }

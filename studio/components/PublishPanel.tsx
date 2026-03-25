@@ -8,6 +8,7 @@ type Props = {
     onPublish: (prTitle: string) => void;
     isPublishing: boolean;
     prUrl: string | null;
+    onStop?: () => void;
 };
 
 export default function PublishPanel({
@@ -16,6 +17,7 @@ export default function PublishPanel({
     onPublish,
     isPublishing,
     prUrl,
+    onStop,
 }: Props) {
     const [prTitle, setPrTitle] = useState("");
 
@@ -85,7 +87,14 @@ export default function PublishPanel({
                     {isPublishing ? (
                         <>
                             <span className="spinner" style={{ borderTopColor: "#fff" }} />
-                            Creating PR…
+                            <span style={{ flex: 1 }}>Creating PR…</span>
+                            <span
+                                role="button"
+                                style={{ fontSize: "11px", opacity: 0.8, cursor: "pointer", textDecoration: "underline" }}
+                                onClick={(e) => { e.stopPropagation(); onStop?.(); }}
+                            >
+                                Stop
+                            </span>
                         </>
                     ) : (
                         <>

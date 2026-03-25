@@ -1,11 +1,22 @@
 import type { BlogEntry } from "./blogs";
 
-export function buildSystemPrompt(): string {
-    return `You are a writing assistant that generates technical blog posts in the author's personal voice.
-
-Writing style: direct, curious, occasionally informal, technically precise without being dry. Uses concrete examples over abstract explanations. Sections are clearly headed with markdown. Includes code snippets where relevant.
+export function buildSystemPrompt(skills?: {
+    blogWriter?: string;
+    humanizer?: string;
+}): string {
+    const base = `You are a writing assistant that generates technical blog posts in the author's personal voice.
 
 You output ONLY valid JSON — no markdown fences, no preamble, no explanation. Just the raw JSON object.`;
+
+    const voiceSection = skills?.blogWriter
+        ? `\n\n== VOICE & STYLE GUIDE ==\n${skills.blogWriter}`
+        : "";
+
+    const humanizeSection = skills?.humanizer
+        ? `\n\n== AVOID THESE AI WRITING PATTERNS ==\n${skills.humanizer}`
+        : "";
+
+    return base + voiceSection + humanizeSection;
 }
 
 export function buildUserPrompt(params: {

@@ -12,6 +12,26 @@ export default function Recorder({ onTranscript }: Props) {
     const recorderRef = useRef<MediaRecorder | null>(null);
     const chunksRef = useRef<Blob[]>([]);
 
+    const transcribe = useCallback(async (blob: Blob) => {
+        try {
+            const form = new FormData();
+            form.append("audio", blob, "audio.webm");
+            const res = await fetch("/api/transcribe", {
+                method: "POST",
+                body: form,
+            });
+            const data = await res.json() as { ok: boolean; text?: string; error?: string };
+            if (!data.ok) throw new Error(data.error ?? "Transcription failed");
+            const trimmed = (data.text ?? "").trim();
+            setCapturedText(trimmed);
+            onTranscript(trimmed);
+            setStatus("done");
+        } catch (err) {
+            setError(String(err));
+            setStatus("error");
+        }
+    }, [onTranscript]);
+
     const startRecording = useCallback(async () => {
         setError(null);
         setCapturedText("");
@@ -37,39 +57,12 @@ export default function Recorder({ onTranscript }: Props) {
             setError(String(err));
             setStatus("error");
         }
-    }, []);
+    }, [transcribe]);
 
     const stopRecording = useCallback(() => {
         recorderRef.current?.stop();
         setStatus("transcribing");
     }, []);
-
-    const transcribe = async (blob: Blob) => {
-        try {
-            const { pipeline } = await import("@huggingface/transformers");
-            const transcriber = await pipeline(
-                "automatic-speech-recognition",
-                "Xenova/whisper-small.en",
-            );
-            const arrayBuffer = await blob.arrayBuffer();
-            const audioCtx = new AudioContext({ sampleRate: 16000 });
-            const decoded = await audioCtx.decodeAudioData(arrayBuffer);
-            const result = await transcriber(decoded.getChannelData(0), {
-                chunk_length_s: 30,
-                stride_length_s: 5,
-            });
-            const text = Array.isArray(result)
-                ? result.map((r: { text: string }) => r.text).join(" ")
-                : (result as { text: string }).text;
-            const trimmed = text.trim();
-            setCapturedText(trimmed);
-            onTranscript(trimmed);
-            setStatus("done");
-        } catch (err) {
-            setError(String(err));
-            setStatus("error");
-        }
-    };
 
     return (
         <div className="card">
@@ -147,17 +140,7 @@ export default function Recorder({ onTranscript }: Props) {
                         }}
                     >
                         <span className="spinner" />
-                        <span>
-                            Transcribing with Whisper…{" "}
-                            <span
-                                style={{
-                                    color: "var(--text-dim)",
-                                    fontStyle: "italic",
-                                }}
-                            >
-                                (first run downloads ~500 MB to browser cache)
-                            </span>
-                        </span>
+                        <span>Transcribing with Groq Whisper…</span>
                     </div>
                 )}
 

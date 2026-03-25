@@ -1,13 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Timeline from "@mui/lab/Timeline";
-import TimelineItem from "@mui/lab/TimelineItem";
-import TimelineSeparator from "@mui/lab/TimelineSeparator";
-import TimelineConnector from "@mui/lab/TimelineConnector";
-import TimelineContent from "@mui/lab/TimelineContent";
-import TimelineDot from "@mui/lab/TimelineDot";
-import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
 import { ResumeItem } from "../lib/resume";
 
 type Props = { items: ResumeItem[] };
@@ -29,44 +22,101 @@ export default function ResumeTimeline({ items }: Props) {
             Number((s ?? "").match(/\b(\d{4})\b/)?.[1] ?? 0);
         return year(b.end) - year(a.end) || year(b.start) - year(a.start);
     });
+
     return (
-        <Timeline position="alternate">
-            {sorted.map((it, i) => (
-                <TimelineItem key={it.id}>
-                    <TimelineOppositeContent
-                        color="text.secondary"
-                        sx={{ minWidth: 140 }}
+        <div
+            style={{
+                borderLeft: "2px solid var(--border)",
+                paddingLeft: "1.5rem",
+                display: "flex",
+                flexDirection: "column",
+                gap: "2.5rem",
+            }}
+        >
+            {sorted.map((it) => (
+                <div key={it.id} style={{ position: "relative" }}>
+                    {/* Timeline dot */}
+                    <div
+                        style={{
+                            position: "absolute",
+                            left: "-1.75rem",
+                            top: "0.35rem",
+                            width: "0.4rem",
+                            height: "0.4rem",
+                            borderRadius: "50%",
+                            backgroundColor: "var(--border)",
+                            border: "1px solid var(--text-muted)",
+                            flexShrink: 0,
+                        }}
+                    />
+
+                    {/* Date and location */}
+                    <div
+                        style={{
+                            fontSize: "0.8rem",
+                            color: "var(--text-muted)",
+                            marginBottom: "0.3rem",
+                            fontFamily: "var(--font-body)",
+                        }}
                     >
                         {formatDateRange(it.start, it.end)}
                         {it.location ? ` · ${it.location}` : ""}
-                    </TimelineOppositeContent>
+                    </div>
 
-                    <TimelineSeparator>
-                        <TimelineDot />
-                        {i < sorted.length - 1 && <TimelineConnector />}
-                    </TimelineSeparator>
+                    {/* Title and org */}
+                    <div
+                        style={{
+                            fontFamily: "var(--font-display)",
+                            fontSize: "1.1rem",
+                            fontWeight: 300,
+                            color: "var(--text)",
+                            marginBottom: "0.4rem",
+                        }}
+                    >
+                        {it.title}
+                        {it.org ? (
+                            <span style={{ color: "var(--text-muted)" }}>
+                                {" "}
+                                · {it.org}
+                            </span>
+                        ) : null}
+                    </div>
 
-                    <TimelineContent sx={{ pb: 4 }}>
-                        <div className="font-semibold">
-                            {it.title}
-                            {it.org ? (
-                                <span className="text-neutral-500 dark:text-neutral-400">
-                                    {" "}
-                                    · {it.org}
+                    {/* Bullets */}
+                    {it.bullets && it.bullets.length > 0 && (
+                        <ul
+                            style={{
+                                margin: "0 0 0.75rem",
+                                paddingLeft: "1.1rem",
+                                fontSize: "0.9rem",
+                                lineHeight: 1.7,
+                                color: "var(--text-muted)",
+                            }}
+                        >
+                            {it.bullets.map((b, idx) => (
+                                <li key={idx}>{b}</li>
+                            ))}
+                        </ul>
+                    )}
+
+                    {/* Tags */}
+                    {it.tags && it.tags.length > 0 && (
+                        <div
+                            style={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                gap: "0.4rem",
+                            }}
+                        >
+                            {it.tags.map((tag) => (
+                                <span key={tag} className="tag">
+                                    {tag}
                                 </span>
-                            ) : null}
+                            ))}
                         </div>
-
-                        {it.bullets && it.bullets.length > 0 && (
-                            <ul className="mt-2 list-disc ps-5 text-sm leading-6 text-neutral-700 dark:text-neutral-300">
-                                {it.bullets.map((b, idx) => (
-                                    <li key={idx}>{b}</li>
-                                ))}
-                            </ul>
-                        )}
-                    </TimelineContent>
-                </TimelineItem>
+                    )}
+                </div>
             ))}
-        </Timeline>
+        </div>
     );
 }

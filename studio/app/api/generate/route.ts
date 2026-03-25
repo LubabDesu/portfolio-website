@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import * as path from "path";
 import { collectBlogTree } from "../../../lib/blogs";
 import { buildSystemPrompt, buildUserPrompt } from "../../../lib/prompts";
+import { BLOG_WRITER_SKILL, HUMANIZER_SKILL } from "../../../lib/skills";
 
 const CONTENT_PATH = path.resolve(
     process.env.PORTFOLIO_CONTENT_PATH ?? "../content/blogs",
@@ -36,7 +37,7 @@ export async function POST(req: NextRequest) {
                 body: JSON.stringify({
                     model: MODEL,
                     messages: [
-                        { role: "system", content: buildSystemPrompt() },
+                        { role: "system", content: buildSystemPrompt({ blogWriter: BLOG_WRITER_SKILL, humanizer: HUMANIZER_SKILL }) },
                         { role: "user", content: userPrompt },
                     ],
                     temperature: 0.6,
