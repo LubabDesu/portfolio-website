@@ -1,11 +1,6 @@
-> **Accuracy flags before you review:**
->
-> - [Section 7, References]: The linked paper (arxiv 1706.03762) is "Attention Is All You Need" — the original transformer paper. That's likely not what you meant here; you probably want links to the specific efficient attention papers (e.g., Sparse Transformer, Longformer, Linformer, FlashAttention, etc.).
-> - [Section 3.3]: "Kimi Moonshot AI" attention — I'm not certain which specific mechanism you're referring to. Kimi (Moonshot AI) is a Chinese AI lab known for long-context work (e.g., their MoonCake KV cache paper), but the most widely-cited "efficient attention from a Chinese lab" in 2024–2025 is DeepSeek's MLA (Multi-head Latent Attention from DeepSeek-V2). Could be either. Left as TODO — please fill in the paper name.
-
 ---
 title: "Efficient attention approaches"
-slug: "transformer-efficient-attention"
+slug: "transformer-efficient-attention-humanized"
 description: "A survey of strategies to reduce the quadratic memory and compute costs of vanilla attention, from sparse methods to kernel approximations."
 date: "2026-03-23"
 tags: ["Transformers", "Attention", "Efficiency"]
@@ -13,6 +8,11 @@ projectSlug: "transformer"
 parentSlug: "transformer-attention"
 status: "wip"
 ---
+
+> **Accuracy flags before you review:**
+>
+> - [Section 7, References]: The linked paper (arxiv 1706.03762) is "Attention Is All You Need" — the original transformer paper. That's likely not what you meant here; you probably want links to the specific efficient attention papers (e.g., Sparse Transformer, Longformer, Linformer, FlashAttention, etc.).
+> - [Section 3.3]: "Kimi Moonshot AI" attention — I'm not certain which specific mechanism you're referring to. Kimi (Moonshot AI) is a Chinese AI lab known for long-context work (e.g., their MoonCake KV cache paper), but the most widely-cited "efficient attention from a Chinese lab" in 2024–2025 is DeepSeek's MLA (Multi-head Latent Attention from DeepSeek-V2). Could be either. Left as TODO — please fill in the paper name.
 
 ## 1. Introduction
 

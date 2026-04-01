@@ -1,7 +1,8 @@
 export default function AboutPage() {
     return (
         <div className="reveal-up">
-            <h1 className="page-title">About</h1>
+            <span className="section-num">About</span>
+            <h1 className="page-title" style={{ marginTop: "0.75rem" }}>Who I am.</h1>
             <span className="page-subtitle">Math–CS · UC San Diego</span>
 
             <section style={{ marginBottom: "2rem" }}>

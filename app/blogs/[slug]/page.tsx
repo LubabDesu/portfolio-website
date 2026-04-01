@@ -58,34 +58,49 @@ export default async function BlogPostPage({
     const post = await getBlog(slug);
 
     return (
-        <main className="max-w-4xl mx-auto px-4 py-12">
-            <article className="surface-panel p-6 md:p-8 reveal-up">
-                <header className="mb-8 border-b border-slate-700/70 pb-6">
-                    <h1 className="text-3xl md:text-4xl font-bold text-slate-100 leading-tight">
-                        {post.title}
-                    </h1>
-                    <p className="text-sm text-slate-400 mt-2 uppercase tracking-wide">
-                        {formatBlogDate(post.date)}
-                    </p>
-                    {!!post.tags?.length && (
-                        <ul className="flex flex-wrap gap-2 mt-3">
-                            {post.tags.map((t) => (
-                                <li
-                                    key={t}
-                                    className="chip"
-                                >
-                                    {t}
-                                </li>
-                            ))}
-                        </ul>
-                    )}
-                </header>
+        <div className="reveal-up">
+            <header style={{ marginBottom: "2.5rem", paddingBottom: "1.5rem", borderBottom: "1px solid var(--border)" }}>
+                <h1
+                    style={{
+                        fontFamily: "var(--font-display)",
+                        fontSize: "clamp(1.8rem, 3vw, 2.6rem)",
+                        fontWeight: 700,
+                        letterSpacing: "-0.02em",
+                        lineHeight: 1.1,
+                        margin: "0 0 0.6rem",
+                        color: "var(--text)",
+                    }}
+                >
+                    {post.title}
+                </h1>
+                <time
+                    style={{
+                        fontFamily: "var(--font-body)",
+                        fontSize: "0.72rem",
+                        letterSpacing: "0.12em",
+                        textTransform: "uppercase",
+                        color: "var(--text-muted)",
+                        display: "block",
+                        marginBottom: "0.75rem",
+                    }}
+                >
+                    {formatBlogDate(post.date)}
+                </time>
+                {!!post.tags?.length && (
+                    <ul style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", listStyle: "none", padding: 0, margin: 0 }}>
+                        {post.tags.map((t) => (
+                            <li key={t}>
+                                <span className="tag">{t}</span>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </header>
 
-                <div
-                    className="blog-content"
-                    dangerouslySetInnerHTML={{ __html: post.bodyHtml }}
-                />
-            </article>
-        </main>
+            <div
+                className="blog-content"
+                dangerouslySetInnerHTML={{ __html: post.bodyHtml }}
+            />
+        </div>
     );
 }
