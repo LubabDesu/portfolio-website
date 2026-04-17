@@ -13,6 +13,25 @@ export type Project = {
 
 export const projects: readonly Project[] = [
     {
+        slug: "novasync",
+        title: "NovaSync",
+        description:
+            "Agentic AI travel planner built at a hackathon. AWS Bedrock Nova 2 Lite agent runs 20+ tool-use iterations (Ticketmaster, Open-Meteo, Google Places) to research a day-by-day itinerary. Human-in-the-loop review before finalizing. Nova Act books restaurants autonomously. Live streaming action feed.",
+        tags: ["AWS Bedrock", "Nova Act", "FastAPI", "React", "Agentic AI"],
+        repo: "https://github.com/LubabDesu/nova-hackathon",
+        year: 2026,
+        status: "shipped",
+    },
+    {
+        slug: "mini-autograd",
+        title: "Mini Autograd Engine",
+        description:
+            "Reverse-mode autodiff engine from scratch with a dynamic computational graph, 20+ ops (MatMul, Softmax, LayerNorm, etc.), and topological-sort backward pass. Trained a decoder-only transformer entirely on the engine with no PyTorch autograd.",
+        tags: ["Python", "PyTorch", "ML Systems", "Transformers"],
+        year: 2026,
+        status: "shipped",
+    },
+    {
         slug: "tse-meemli",
         title: "Triton Software Engineering - Meemli",
         description:

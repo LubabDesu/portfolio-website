@@ -44,9 +44,7 @@ export default function ContactPage() {
                     fontWeight: 300,
                 }}
             >
-                Currently seeking software engineering internships for Summer
-                2025. Open to full-time roles starting 2026. I respond to every
-                message — expect a reply within 48 hours.
+                Looking for fall, winter, or spring internships for the 2026/27 academic year. Open to full-time roles, research opportunities, or just connecting. I respond to every message.
             </p>
 
             {/* Primary email */}
@@ -145,8 +143,7 @@ export default function ContactPage() {
                         fontWeight: 300,
                     }}
                 >
-                    Currently booking for Summer 2025 internships &amp; new
-                    grad 2026.
+                    Seeking fall, winter, or spring internships for 2026/27. Open to full-time roles, research, or just connecting.
                 </p>
             </div>
         </div>

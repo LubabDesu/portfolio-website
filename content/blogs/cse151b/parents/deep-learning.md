@@ -5,7 +5,7 @@ description: "What I learned in deep learning class and the approaches I'm plann
 date: "2026-04-05"
 tags: ["Deep Learning", "CSE151B", "Qwen3", "Fine-Tuning", "LoRA", "Math", "LLMs"]
 projectSlug: "cse151b"
-status: "published"
+status: "draft"
 ---
 
 ## 1. Introduction
