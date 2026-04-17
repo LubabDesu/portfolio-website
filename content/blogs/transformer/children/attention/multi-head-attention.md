@@ -6,7 +6,7 @@ date: "2026-02-15"
 tags: ["Transformers", "Attention", "Multi-Head Attention"]
 projectSlug: "transformer"
 parentSlug: "transformer-attention"
-status: "wip"
+status: "published"
 ---
 
 ## 1. Introduction
@@ -55,22 +55,31 @@ Head Type F : Semantic similarity
 
 And very interestingly, which was counter to my initial belief when I first learnt this, not all heads are equal. Yes, some heads are less important than others (equality for heads??!!?!?) and Voita et al. even found that in many models, only a small subset of these heads are truly essential. The rest of the heads can actually be pruned without much performance loss. This has motivated sparse attention and head-pruning research, where they try to limit computations to the heads that actually matter.
 
-### 4.2
+Paper : https://aclanthology.org/P19-1580/
 
-## 4. Results / Findings
+## 5. Results / Findings
 
-Multi-head attention tends to outperform single-head at similar model size because it captures multiple relation types in parallel.  
-The tradeoff is extra projection overhead and memory movement.
+So does it actually work? Yea. Multi-head consistently beats single-head at the same model size. The reason is basically what you'd expect from everything above — you're covering more types of relationships at once without proportionally increasing compute, so for the same resources, you get richer representations.
 
-## 5. Reflections / Future Work
+The paper linked below summarizes the major empirical findings on multi-head attention interpretability:
 
-A clean next step is a small ablation on head count while keeping parameter budget fixed.  
-That usually reveals a sweet spot instead of a monotonic gain.
+- **Specialization** — Individual heads develop distinct functions: induction heads for in-context learning, syntactic heads, semantic heads. No explicit supervision required.
+- **Massive Redundancy** — 70-90% of heads can be removed with minimal performance loss, yet the remaining critical heads provide genuine causal structure. This was discussed above.
+- **Hierarchy in Heads** — Heads operate in layered dependency chains. Early layers detect primitive features (noun-verb pairs); middle layers compose longer-range dependencies; late layers integrate sentence-level structure. I like to think of it like a dependency graph, where later layers depend on earlier layers.
+- **Negative Interactions** — Some heads actually, surprisingly, actively suppress performance. Removing them can actually improve accuracy, which is weird... Why would they do that to themselves? I have no idea as well lol.
 
-## 6. Conclusion
+Paper : https://arxiv.org/html/2601.04398#S15
 
-Multi-head structure improves representational coverage with manageable compute tradeoffs.
+## 6. Reflections / Future Work
 
-## 7. Links & References
+The head-pruning finding genuinely surprised me. I would have assumed more heads = strictly better, but the fact that 70-90% can be removed with minimal loss suggests we're massively over-parameterizing. I guess it is reflective of real-life in some sense? Overcomplicating something, overdoing something or just trying to be excessive in one aspect is bound to worsen performance in any aspect, so just find a nice balance like everything in life.
+
+Also a question worth thinking about: if heads specialize without supervision, what determines which head learns what? Is it random, or does something in the data push them toward different roles? This was one of the questions that bugged me for really long since I took CSE156. Gotta spend some time digging about this soon.
+
+## 7. Conclusion
+
+Multi-head attention works because each head can specialize in a different type of relationship, and you get all of that in parallel for roughly the same compute cost as a single head. The redundancy findings complicate the story a bit though. It does so happen that most of those heads aren't doing much, but the concept itself is IMO brilliant and it's at the heart of every modern LLM. It has also served as the foundation for many other cool attention mechanisms used by other models.
+
+## 8. Links & References
 
 - Paper: https://arxiv.org/abs/1706.03762

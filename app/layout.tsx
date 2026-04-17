@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Crimson_Pro } from "next/font/google";
+import { Noto_Serif, Manrope } from "next/font/google";
 import "./globals.css";
 import Sidebar from "../components/Sidebar";
 
-const cormorant = Cormorant_Garamond({
+const notoSerif = Noto_Serif({
     subsets: ["latin"],
-    weight: ["300", "400", "500"],
-    variable: "--font-cormorant",
+    weight: ["400", "700"],
+    style: ["normal", "italic"],
+    variable: "--font-noto-serif",
     display: "swap",
 });
 
-const crimson = Crimson_Pro({
+const manrope = Manrope({
     subsets: ["latin"],
-    weight: ["300", "400", "600"],
-    variable: "--font-crimson",
+    weight: ["300", "400", "500", "600"],
+    variable: "--font-manrope",
     display: "swap",
 });
 
@@ -31,7 +32,7 @@ export default function RootLayout({
     return (
         <html
             lang="en"
-            className={`${cormorant.variable} ${crimson.variable}`}
+            className={`${notoSerif.variable} ${manrope.variable}`}
         >
             <body>
                 <div className="layout">

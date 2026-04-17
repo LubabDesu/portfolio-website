@@ -1,7 +1,8 @@
 export default function AboutPage() {
     return (
         <div className="reveal-up">
-            <h1 className="page-title">About</h1>
+            <span className="section-num">About</span>
+            <h1 className="page-title" style={{ marginTop: "0.75rem" }}>Who I am.</h1>
             <span className="page-subtitle">Math–CS · UC San Diego</span>
 
             <section style={{ marginBottom: "2rem" }}>
@@ -32,7 +33,7 @@ export default function AboutPage() {
                     Focus Areas
                 </h2>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
-                    {["Next.js", "TypeScript", "Python", "LLMs"].map((skill) => (
+                    {["Python", "TypeScript", "ML Systems", "Agentic AI", "LLMs"].map((skill) => (
                         <span key={skill} className="tag">
                             {skill}
                         </span>
@@ -64,9 +65,10 @@ export default function AboutPage() {
                         lineHeight: 1.8,
                     }}
                 >
-                    <li>Real-time storyboard agent at DSO (LangGraph, LLMs)</li>
-                    <li>Piano reduction research</li>
-                    <li>$7.5k summer grant</li>
+                    <li>Incoming SWE Intern at Visa, Singapore (Summer 2026)</li>
+                    <li>ML Intern at DSO National Labs — LangGraph storyboard agent</li>
+                    <li>Built mini autograd engine; trained transformer on it from scratch</li>
+                    <li>NovaSync: agentic travel planner w/ autonomous booking (hackathon)</li>
                 </ul>
             </section>
 

@@ -13,7 +13,7 @@ export type BlogMeta = {
     parentSlug?: string;
     image?: string;
     featured?: boolean;
-    status?: "shipped" | "wip";
+    status?: "published" | "wip";
     href?: string;
     repo?: string;
 };
@@ -77,7 +77,14 @@ function getBlogFileIndex(): Map<string, string> {
 }
 
 export function getAllSlugs(): string[] {
-    return Array.from(getBlogFileIndex().keys());
+    const index = getBlogFileIndex();
+    return Array.from(index.entries())
+        .filter(([, filePath]) => {
+            const raw = fs.readFileSync(filePath, "utf-8");
+            const { data } = matter(raw);
+            return data.status === "published";
+        })
+        .map(([slug]) => slug);
 }
 
 export function getBlogFile(slug: string): string {
@@ -133,9 +140,11 @@ export async function getBlog(slug: string): Promise<Blog> {
 
 export function getAllBlogMetaSorted(): BlogMeta[] {
     const index = getBlogFileIndex();
-    const metas = Array.from(index.entries()).map(([slug, filePath]) =>
-        parseBlogMeta(slug, fs.readFileSync(filePath, "utf-8"))
-    );
+    const metas = Array.from(index.entries())
+        .map(([slug, filePath]) =>
+            parseBlogMeta(slug, fs.readFileSync(filePath, "utf-8"))
+        )
+        .filter((meta) => meta.status === "published");
     // newest first
     return metas.sort(
         (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()

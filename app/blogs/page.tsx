@@ -10,8 +10,9 @@ export default function BlogsPage() {
 
     return (
         <div className="reveal-up">
-            <h1 className="page-title">Blog</h1>
-            <span className="page-subtitle">Notes by project or topic</span>
+            <span className="section-num">Blog</span>
+            <h1 className="page-title" style={{ marginTop: "0.75rem" }}>Writing & notes.</h1>
+            <span className="page-subtitle">By project or topic</span>
             <BlogExplorer
                 blogs={blogs}
                 projectLabels={{
