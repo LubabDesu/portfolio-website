@@ -17,11 +17,12 @@
       "Bash(curl -sL \"https://app-companion-430619.appspot.com/render/projects/18219411939573207452/screens/5e9f367874464685aa590c4241508866\" -o resume.html)",
       "Bash(curl -sL \"https://app-companion-430619.appspot.com/render/projects/18219411939573207452/screens/7ff50900bf564bfc8eda8b922c949b35\" -o contact.html)",
       "Bash(__NEW_LINE_a011b32361964ba7__ wc:*)",
-      "Bash(rtk proxy:*)"
+      "Bash(rtk proxy:*)",
+      "Bash(npm rebuild:*)"
     ]
   },
+  "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "claude-flow"
-  ],
-  "enableAllProjectMcpServers": true
+  ]
 }

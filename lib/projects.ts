@@ -26,13 +26,19 @@ export const projects: readonly Project[] = [
         status: "wip",
     },
     {
-        slug: "leetcode-ai-assistant",
-        title: "LeetCode AI Assistant",
+        slug: "universal-job-tracker",
+        title: "Universal Job Tracker: Automating the Search with AI & MCP",
         description:
-            "Chrome extension that gives contextual hints while coding.",
-        tags: ["TypeScript", "Chrome", "LLM"],
-        repo: "https://github.com/you/leetcode-ai",
-        year: 2025,
+            "A high-end automation tool that uses a custom Chrome extension to detect job applications and an MCP server to instantly log them into Notion. The system triggers an AI enrichment phase that summarizes job descriptions and generates dedicated interview prep pages before you even close the browser tab.",
+        tags: [
+            "TypeScript",
+            "React",
+            "Chrome Extension API",
+            "MCP SDK",
+            "Notion API",
+            "OpenRouter",
+        ],
+        year: 2026,
         status: "wip",
     },
     {
