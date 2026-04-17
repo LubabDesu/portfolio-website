@@ -43,3 +43,5 @@ next-env.d.ts
 # local development
 *.local.json
 .superpowers/
+
+studio/
