@@ -1,29 +1,26 @@
 {
-  "permissions": {
-    "allow": [
-      "Bash(npx jest:*)",
-      "Bash(npm install:*)",
-      "Bash(git commit:*)",
-      "Bash(node:*)",
-      "Skill(humanizer)",
-      "Bash(grep -E \"\\\\.\\(ts|tsx|json\\)$\")",
-      "WebSearch",
-      "Bash(find /Users/lucasyan/.claude -name *blog* -o -name *humaniz*)",
-      "Bash(find /Users/lucasyan/.claude -path */skills/blog-writer* -o -path */skills/humanizer*)",
-      "Bash(find /Users/lucasyan/my-portfolio -path */.claude/skills*)",
-      "mcp__stitch__get_screen",
-      "Bash(__NEW_LINE_a011b32361964ba7__ curl:*)",
-      "Bash(curl -sL \"https://app-companion-430619.appspot.com/render/projects/18219411939573207452/screens/5abb4c05901b40b2a07f25e931648e2c\" -o home.html)",
-      "Bash(curl -sL \"https://app-companion-430619.appspot.com/render/projects/18219411939573207452/screens/5e9f367874464685aa590c4241508866\" -o resume.html)",
-      "Bash(curl -sL \"https://app-companion-430619.appspot.com/render/projects/18219411939573207452/screens/7ff50900bf564bfc8eda8b922c949b35\" -o contact.html)",
-      "Bash(__NEW_LINE_a011b32361964ba7__ wc:*)",
-      "Bash(rtk proxy:*)",
-      "Bash(npm rebuild:*)",
-      "Bash(git add *)"
-    ]
-  },
-  "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": [
-    "claude-flow"
-  ]
+    "permissions": {
+        "allow": [
+            "Bash(npx jest:*)",
+            "Bash(npm install:*)",
+            "Bash(git commit:*)",
+            "Bash(node:*)",
+            "Skill(humanizer)",
+            "Bash(grep -E \"\\\\.\\(ts|tsx|json\\)$\")",
+            "WebSearch",
+            "Bash(find /Users/lucasyan/.claude -name *blog* -o -name *humaniz*)",
+            "Bash(find /Users/lucasyan/.claude -path */skills/blog-writer* -o -path */skills/humanizer*)",
+            "Bash(find /Users/lucasyan/my-portfolio -path */.claude/skills*)",
+            "mcp__stitch__get_screen",
+            "Bash(__NEW_LINE_a011b32361964ba7__ curl:*)",
+            "Bash(curl -sL \"https://app-companion-430619.appspot.com/render/projects/18219411939573207452/screens/5abb4c05901b40b2a07f25e931648e2c\" -o home.html)",
+            "Bash(curl -sL \"https://app-companion-430619.appspot.com/render/projects/18219411939573207452/screens/5e9f367874464685aa590c4241508866\" -o resume.html)",
+            "Bash(curl -sL \"https://app-companion-430619.appspot.com/render/projects/18219411939573207452/screens/7ff50900bf564bfc8eda8b922c949b35\" -o contact.html)",
+            "Bash(__NEW_LINE_a011b32361964ba7__ wc:*)",
+            "Bash(rtk proxy:*)",
+            "Bash(npm rebuild:*)"
+        ]
+    },
+    "enableAllProjectMcpServers": true,
+    "enabledMcpjsonServers": ["claude-flow"]
 }
